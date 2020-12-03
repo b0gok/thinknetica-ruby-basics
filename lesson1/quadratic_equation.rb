@@ -16,7 +16,8 @@ if d.negative?
 elsif d.zero?
   puts "Дискриминант: #{d}, корень: #{-b / (2 * a)}"
 else
-  x1 = (-b + Math.sqrt(d)) / (2 * a)
-  x2 = (-b - Math.sqrt(d)) / (2 * a)
+  sqrt_from_d = Math.sqrt(d)
+  x1 = (-b + sqrt_from_d) / (2 * a)
+  x2 = (-b - sqrt_from_d) / (2 * a)
   puts "Дискриминант: #{d}, корни: #{x1}, #{x2}"
 end
