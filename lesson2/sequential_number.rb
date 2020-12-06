@@ -23,11 +23,7 @@ end
 def calc_total(day, month, year)
   return day if month == 1
 
-  total = day
-  months = months_by_year(year)[0..(month - 2)]
-  months.each { |days| total += days }
-
-  total
+  months_by_year(year).first(month - 1).sum + day
 end
 
 puts 'Введите день'
