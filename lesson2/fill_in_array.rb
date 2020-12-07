@@ -2,9 +2,5 @@
 
 # Заполнить массив числами от 10 до 100 с шагом 5
 
-array = []
-for el in 10..100
-  array.push(el) if (el % 5).zero?
-end
-
+array = (5..100).step(5).to_a
 puts array
