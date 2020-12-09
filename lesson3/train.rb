@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Поезд
-# указываются при создании экземпляра класса
+# Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество вагонов, эти данные указываются при создании экземпляра класса
 # Может набирать скорость
 # Может возвращать текущую скорость
 # Может тормозить (сбрасывать скорость до нуля)
@@ -13,7 +13,7 @@
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
   attr_accessor :speed
-  attr_reader :type, :wagons_count
+  attr_reader :number, :type, :wagons_count
 
   def initialize(number, type, wagons_count)
     @number = number
@@ -36,6 +36,28 @@ class Train
 
   def route=(route)
     @route = route
-    route.first.add_train(self)
+    @current_station = route.first_station
+    @current_station.add_train(self)
+  end
+
+  def current_station_index
+    stations = @route.stations_list
+    stations.index(@current_station)
+  end
+
+  def move_forward
+    return unless @current_station == @route.last_station
+
+    @current_station.remove_train(self)
+    @current_station = stations[current_station_index + 1]
+    @current_station.add_train(self)
+  end
+
+  def move_back
+    return unless @current_station == @route.first_station
+
+    @current_station.remove_train(self)
+    @current_station = stations[current_station_index - 1]
+    @current_station.add_train(self)
   end
 end

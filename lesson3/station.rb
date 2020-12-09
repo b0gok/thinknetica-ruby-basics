@@ -18,7 +18,15 @@ class Station
     @trains << train
   end
 
+  def show_trains
+    @trains.each { |train| puts train.number }
+  end
+
   def trains_count_by_type(type)
     @trains.count { |train| train.type == type }
+  end
+
+  def remove_train(train)
+    @trains.delete(train)
   end
 end
