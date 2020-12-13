@@ -16,6 +16,8 @@ class Route
 
   def add_station(station)
     @transfer_stations << station
+    @transfer_stations.uniq!
+    @transfer_stations
   end
 
   def remove_station(station)
@@ -23,7 +25,7 @@ class Route
   end
 
   def stations_list
-    [@first_station].concat(@transfer_stations, [@last_station])
+    [@first_station, *@transfer_stations, @last_station]
   end
 
   def show_stations_list
