@@ -26,9 +26,13 @@ RSpec.describe Route do
       route.add_station(transfer)
       route
     end
-    it 'does not remove bounded stations' do
+    it 'does not remove first station' do
       subject.remove_station(first)
       expect(subject.stations_list).to include(first)
+    end
+    it 'does not remove last stations' do
+      subject.remove_station(last)
+      expect(subject.stations_list).to include(last)
     end
     it 'delets transfer stations only' do
       subject.remove_station(transfer)
@@ -41,10 +45,13 @@ RSpec.describe Route do
     end
   end
   describe '#stations_list' do
-    it 'stations list without transfer stations' do
+    it 'return stations list' do
       expect(subject.stations_list).to match_array([first, last])
     end
   end
   describe '#show_stations_list' do
+    it 'return stations list to stdout' do
+      expect { subject.show_stations_list }.to output(a_string_including(first)).to_stdout
+    end
   end
 end
