@@ -41,29 +41,10 @@ RSpec.describe Route do
     end
   end
   describe '#stations_list' do
+    it 'stations list without transfer stations' do
+      expect(subject.stations_list).to match_array([first, last])
+    end
   end
   describe '#show_stations_list' do
-  end
-end
-class Route
-  attr_reader :first_station, :last_station
-  def initialize(first_station, last_station)
-    @first_station = first_station
-    @last_station = last_station
-    @transfer_stations = []
-  end
-  def add_station(station)
-    @transfer_stations << station
-    @transfer_stations.uniq!
-    @transfer_stations
-  end
-  def remove_station(station)
-    @transfer_stations.delete(station)
-  end
-  def stations_list
-    [@first_station, *@transfer_stations, @last_station]
-  end
-  def show_stations_list
-    stations_list.each { |station| puts station.name }
   end
 end
