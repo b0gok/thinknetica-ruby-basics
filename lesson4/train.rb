@@ -13,25 +13,26 @@
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
   attr_accessor :speed
-  attr_reader :number, :type, :wagons_count
+  attr_reader :number, :type
 
-  def initialize(number, type, wagons_count)
+  def initialize(number, type)
     @number = number
     @type = type
-    @wagons_count = wagons_count
     @speed = 0
+    @wagons = []
   end
 
   def stop
     self.speed = 0
   end
 
-  def add_wagons
-    @wagons_count += 1 unless @speed.zero?
+  def add_wagon(wagon)
+    @wagons << wagon
   end
 
   def remove_wagons
-    @wagons_count -= 1 unless @speed.zero? && @wagons_count.positive?
+    @wagons.delete(wagon)
+    @wagons
   end
 
   def route=(route)
