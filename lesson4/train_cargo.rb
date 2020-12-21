@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require_relative 'train.rb'
+require_relative 'wagon_cargo.rb'
 
 # Грузовой поезд
 class TrainCargo < Train
-  def initialize(number)
-    super(number, 'cargo')
+  def add_wagon
+    @wagons << WagonCargo.new
   end
 end

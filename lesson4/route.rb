@@ -22,6 +22,7 @@ class Route
 
   def remove_station(station)
     @transfer_stations.delete(station)
+    @transfer_stations
   end
 
   def stations_list
@@ -29,6 +30,6 @@ class Route
   end
 
   def show_stations_list
-    stations_list.each { |station| puts station }
+    stations_list.each_with_index { |station, index| puts "#{index} — #{station.name}" }
   end
 end

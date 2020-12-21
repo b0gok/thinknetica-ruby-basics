@@ -2,5 +2,4 @@
 
 # Вагон
 class Wagon
-  attr_accessor :number, :train
 end
