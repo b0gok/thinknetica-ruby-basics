@@ -5,7 +5,10 @@ require_relative 'wagon_pass.rb'
 
 # Пассажирский поезд
 class TrainPass < Train
-  def add_wagon
-    @wagons << WagonPass.new
+  protected
+
+  # Предполагает переопределение
+  def can_add_wagon?(wagon)
+    wagon.is_a? WagonPass
   end
 end

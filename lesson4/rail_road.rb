@@ -21,7 +21,7 @@ class RailRoad
       puts 'Введите 1, если хотите создать станцию, поезд, вагон или маршрут'
       puts 'Введите 2, если хотите произвести операцию с созданными объектами'
       puts 'Введите 3, если хотите вывести текущие данные об объектах'
-      exit_text
+      puts 'Введите стоп для выхода из меню'
       choise = gets.chomp
 
       case choise
@@ -42,7 +42,7 @@ class RailRoad
   private
 
   def exit_text
-    puts 'Введите стоп для выхода из меню'
+    puts 'Введите назад для выхода из меню'
   end
 
   def wrong_command_text
@@ -84,7 +84,7 @@ class RailRoad
       choise = gets.chomp
 
       case choise
-      when 'стоп'
+      when 'назад'
         break
       when '1'
         @stations << created_station
@@ -115,7 +115,7 @@ class RailRoad
 
     train_list
     puts 'Введите индекс поезда'
-    train_index = gets.chomp
+    train_index = gets.chomp.to_i
     train = @trains[train_index]
 
     loop do
@@ -129,10 +129,11 @@ class RailRoad
       choise = gets.chomp
 
       case choise
-      when 'стоп'
+      when 'назад'
         break
       when '1'
-        train.add_wagon
+        wagon = train.is_a? TrainPass ? WagonPass.new : WagonCargo.new
+        train.add_wagon(wagon)
       when '2'
         train.remove_wagon
       when '3'
@@ -163,7 +164,7 @@ class RailRoad
       choise = gets.chomp
 
       case choise
-      when 'стоп'
+      when 'назад'
         break
       when '1'
         route.add_station(created_station)
@@ -192,7 +193,7 @@ class RailRoad
       choise = gets.chomp
 
       case choise
-      when 'стоп'
+      when 'назад'
         break
       when '1'
         edit_train
@@ -212,7 +213,7 @@ class RailRoad
       choise = gets.chomp
 
       case choise
-      when 'стоп'
+      when 'назад'
         break
       when '1'
         if @routes.empty?
@@ -222,7 +223,7 @@ class RailRoad
 
         station_list
         puts 'Введите индекс станции, чтобы вывести список поездов'
-        station_index = gets.chomp
+        station_index = gets.chomp.to_i
         stations[station_index].show_trains
       else
         wrong_command_text

@@ -18,7 +18,7 @@ class Train
   end
 
   def add_wagon
-    @wagons << Wagon.new
+    @wagons << wagon if can_add_wagon?(wagon)
     @wagons
   end
 
@@ -47,6 +47,13 @@ class Train
     @current_station.remove_train(self)
     @current_station = stations[current_station_index - 1]
     @current_station.add_train(self)
+  end
+
+  protected
+
+  # Предполагает переопределение
+  def can_add_wagon?(*)
+    true
   end
 
   private
