@@ -9,9 +9,17 @@
 class Station
   attr_reader :name, :trains
 
+  @@stations = []
+
+  # В классе Station (жд станция) создать метод класса all, который возвращает все станции (объекты), созданные на данный момент
+  def self.all
+    @@stations
+  end
+
   def initialize(name)
     @name = name
     @trains = []
+    @@stations << self
   end
 
   def add_train(train)
