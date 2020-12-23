@@ -2,10 +2,12 @@
 
 require_relative 'wagon.rb'
 require_relative 'company.rb'
+require_relative 'instance_counter.rb'
 
 # Поезд
 class Train
   include Company
+  include InstanceCounter
 
   attr_accessor :speed
   attr_reader :number
