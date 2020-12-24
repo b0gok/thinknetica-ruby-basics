@@ -14,17 +14,17 @@ class Train
 
   # В классе Train создать метод класса find, который принимает номер поезда (указанный при его создании)
   # и возвращает объект поезда по номеру или nil, если поезд с таким номером не найден.
-  @@trains = []
+  @@trains = {}
 
   def self.find(number)
-    @@trains.find { |train| train.number == number }
+    @@trains[number]
   end
 
   def initialize(number)
     @number = number
     @speed = 0
     @wagons = []
-    @@trains << self
+    @@trains[number] = self
   end
 
   def stop
