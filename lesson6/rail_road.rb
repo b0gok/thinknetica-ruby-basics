@@ -91,10 +91,16 @@ class RailRoad
       when '2'
         puts 'Введите тип поезда (грузовой, пассажирский)'
         train_type = gets.chomp
-        puts 'Введите номер поезда'
-        train_number = gets.chomp
-        @trains << TrainCargo.new(train_number) if train_type == 'грузовой'
-        @trains << TrainPass.new(train_number) if train_type == 'пассажирский'
+        begin
+          puts 'Введите номер поезда'
+          train_number = gets.chomp
+          @trains << TrainCargo.new(train_number) if train_type == 'грузовой'
+          @trains << TrainPass.new(train_number) if train_type == 'пассажирский'
+        rescue RuntimeError => e
+          puts "Произошла ошибка! #{e.message}"
+          retry
+        end
+        puts "Поезд #{train_number} успешно создан!"
       when '3'
         puts 'Введите начальную станцию'
         first_station = gets.chomp
