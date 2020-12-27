@@ -3,18 +3,20 @@
 require_relative 'wagon.rb'
 require_relative 'company.rb'
 require_relative 'instance_counter.rb'
+require_relative 'validation.rb'
 
 # Поезд
 class Train
   include Company
   include InstanceCounter
+  include Validation
 
   attr_accessor :speed
   attr_reader :number
 
   # три буквы или цифры в любом порядке, необязательный дефис (может быть, а может нет)
   # и еще 2 буквы или цифры после дефиса.
-  NUMBER_FORMAT = /^([а-я]|\d){3}-*([а-я]|\d){2}$/i
+  NUMBER_FORMAT = /^([а-я]|\d){3}-?([а-я]|\d){2}$/i
 
   # В классе Train создать метод класса find, который принимает номер поезда (указанный при его создании)
   # и возвращает объект поезда по номеру или nil, если поезд с таким номером не найден.
@@ -66,12 +68,6 @@ class Train
     @current_station.remove_train(self)
     @current_station = stations[current_station_index - 1]
     @current_station.add_train(self)
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
   end
 
   protected

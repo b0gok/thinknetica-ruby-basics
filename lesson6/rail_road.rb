@@ -69,9 +69,16 @@ class RailRoad
   end
 
   def created_station
-    puts 'Введите название станции'
-    station_name = gets.chomp
-    Station.new(station_name)
+    begin
+      puts 'Введите название станции'
+      station_name = gets.chomp
+      station = Station.new(station_name)
+    rescue RuntimeError => e
+      puts "Произошла ошибка! #{e.message}"
+      retry
+    end
+    puts "Станция #{station_name} успешно создана!"
+    station
   end
 
   def create

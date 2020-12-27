@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'instance_counter.rb'
+require_relative 'validation.rb'
 
 # Маршрут
 # Имеет начальную и конечную станцию, а также список промежуточных станций. Начальная и конечная станции указываютсся при создании маршрута, а промежуточные могут добавляться между ними.
@@ -9,6 +10,7 @@ require_relative 'instance_counter.rb'
 # Может выводить список всех станций по-порядку от начальной до конечной
 class Route
   include InstanceCounter
+  include Validation
 
   attr_reader :first_station, :last_station
 
@@ -36,12 +38,6 @@ class Route
 
   def show_stations_list
     stations_list.each_with_index { |station, index| puts "#{index} — #{station.name}" }
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
   end
 
   protected
