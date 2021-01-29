@@ -11,7 +11,7 @@ class Train
   include InstanceCounter
   include Validation
 
-  attr_accessor :speed
+  attr_accessor :speed, :wagons
   attr_reader :number
 
   # три буквы или цифры в любом порядке, необязательный дефис (может быть, а может нет)
@@ -40,12 +40,12 @@ class Train
 
   def add_wagon
     @wagons << wagon if can_add_wagon?(wagon)
-    @wagons
+    wagons
   end
 
   def remove_wagon
     @wagons.pop
-    @wagons
+    wagons
   end
 
   def route=(route)
@@ -68,6 +68,14 @@ class Train
     @current_station.remove_train(self)
     @current_station = stations[current_station_index - 1]
     @current_station.add_train(self)
+  end
+
+  def wagons_count
+    wagons.size
+  end
+
+  def each_wagon
+    wagons.each_with_index { |wagon, index| yield(wagon, index) if block_given? }
   end
 
   protected

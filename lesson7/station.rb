@@ -33,10 +33,6 @@ class Station
     @trains << train
   end
 
-  def show_trains
-    @trains.each { |train| puts train.number }
-  end
-
   def trains_count_by_type(type)
     @trains.count { |train| train.type == type }
   end
@@ -45,8 +41,8 @@ class Station
     @trains.delete(train)
   end
 
-  def show_stations
-    @trains.each { |train| yield(train) }
+  def each_train
+    @trains.each { |train| yield(train) if block_given? }
   end
 
   protected

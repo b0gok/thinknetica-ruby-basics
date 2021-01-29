@@ -54,7 +54,9 @@ class RailRoad
   end
 
   def station_list
-    @stations.each_with_index { |station, index| puts "#{index}: #{station.name}" }
+    @stations.each_with_index do |station, index|
+      puts "#{index}: #{station.name}"
+    end
   end
 
   def route_list
@@ -101,8 +103,15 @@ class RailRoad
         begin
           puts 'Введите номер поезда'
           train_number = gets.chomp
-          @trains << TrainCargo.new(train_number) if train_type == 'грузовой'
-          @trains << TrainPass.new(train_number) if train_type == 'пассажирский'
+          if train_type == 'грузовой'
+            puts 'Введите объём'
+            capacity = gets.chomp
+          else
+            puts 'Введите кол-во мест'
+            seats = gets.chomp
+          end
+          @trains << TrainCargo.new(train_number, capacity) if train_type == 'грузовой'
+          @trains << TrainPass.new(train_number, seats) if train_type == 'пассажирский'
         rescue RuntimeError => e
           puts "Произошла ошибка! #{e.message}"
           retry
@@ -137,6 +146,7 @@ class RailRoad
       puts 'Введите 3, если хотите отправить поезд'
       puts 'Введите 4, если хотите вернуть поезд'
       puts 'Введите 5, если хотите назначить маршрут'
+      puts 'Введите 6, если хотите приозвести действие с вагоном'
       exit_text
 
       choise = gets.chomp
@@ -155,10 +165,48 @@ class RailRoad
         train.move_backward
       when '5'
         train.route = choosen_route
+      when '6'
+        train.each_wagon do |wagon, index|
+          if is_pass_wagon?(wagon)
+            puts wagon "№ #{index}, тип: пассажирский, кол-во свободных мест: #{wagon.free_seats}, кол-во занятых мест: #{wagon.taken_seats}"
+          else
+            puts wagon "№ #{index}, тип: грузовой, кол-во свободного объема: #{wagon.free_capacity}, кол-во занятого объема: #{wagon.taken_capacity}"
+          end
+        end
+        puts 'Введите номер вагона'
+        wagon_index = gets.chomp.to_i
+        wagon = train.wagons[wagon_index]
+        is_pass_wagon = is_pass_wagon?(wagon)
+        loop do
+          if is_pass_wagon
+            puts 'Введите 1, чтобы заполнить вагон'
+          else
+            puts 'Введите 1, чтобы занять место в вагоне'
+          end
+          exit_text
+
+          choise = gets.chomp
+          case choise
+          when 'назад'
+            break
+          when '1'
+            if is_pass_wagon
+              wagon.take_seat
+            else
+              puts 'Введите объём'
+              capacity = gets.chomp.to_i
+              wagon.take_capacity(capacity)
+            end
+          end
+        end
       else
         wrong_command_text
       end
     end
+  end
+
+  def is_pass_wagon?(wagon)
+    wagon.is_a? WagonPass
   end
 
   def edit_route
@@ -237,7 +285,10 @@ class RailRoad
         station_list
         puts 'Введите индекс станции, чтобы вывести список поездов'
         station_index = gets.chomp.to_i
-        stations[station_index].show_trains
+        stations[station_index].each_train do |train|
+          train_type = train.is_a? TrainPass ? 'пассажирский' : 'грузовой'
+          puts "#{train.number}, #{train_type}, #{train.wagons_count}"
+        end
       else
         wrong_command_text
       end
