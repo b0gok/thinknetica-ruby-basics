@@ -168,7 +168,7 @@ class RailRoad
       when '6'
         train.each_wagon do |wagon, index|
           if is_pass_wagon?(wagon)
-            puts wagon "№ #{index}, тип: пассажирский, кол-во свободных мест: #{wagon.free_seats}, кол-во занятых мест: #{wagon.taken_seats}"
+            puts wagon "№ #{index}, тип: пассажирский, кол-во свободных мест: #{wagon.free_capacity}, кол-во занятых мест: #{wagon.taken_capacity}"
           else
             puts wagon "№ #{index}, тип: грузовой, кол-во свободного объема: #{wagon.free_capacity}, кол-во занятого объема: #{wagon.taken_capacity}"
           end
@@ -191,7 +191,7 @@ class RailRoad
             break
           when '1'
             if is_pass_wagon
-              wagon.take_seat
+              wagon.take_capacity
             else
               puts 'Введите объём'
               capacity = gets.chomp.to_i
