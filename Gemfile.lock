@@ -1,11 +1,30 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    diff-lcs (1.4.4)
+    rack (2.2.3)
+    robocop (0.1.1)
+      rack
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
+    rspec-core (3.10.1)
+      rspec-support (~> 3.10.0)
+    rspec-expectations (3.10.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-mocks (3.10.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-support (3.10.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  robocop
+  rspec
 
 BUNDLED WITH
    2.1.4
