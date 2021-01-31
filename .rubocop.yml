@@ -1,0 +1,30 @@
+Style/Documentation:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - 'lesson8/rail_road.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lesson8/rail_road.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'lesson8/rail_road.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'lesson8/rail_road.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lesson8/rail_road.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'lesson8/rail_road.rb'
+

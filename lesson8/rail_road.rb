@@ -178,43 +178,47 @@ class RailRoad
       when '5'
         train.route = choosen_route
       when '6'
-        train.each_wagon do |w, i|
-          if pass_wagon?(w)
-            puts "Вагон № #{i}, тип: пассажирский, кол-во свободных мест: #{w.free_capacity},
-              кол-во занятых мест: #{w.taken_capacity}"
-          else
-            puts "Вагон № #{i}, тип: грузовой, кол-во свободного объема: #{w.free_capacity},
-              кол-во занятого объема: #{w.taken_capacity}"
-          end
-        end
-        puts 'Введите номер вагона'
-        wagon_index = gets.chomp.to_i
-        wagon = train.wagons[wagon_index]
-        is_pass_wagon = pass_wagon?(wagon)
-        loop do
-          if is_pass_wagon
-            puts 'Введите 1, чтобы заполнить вагон'
-          else
-            puts 'Введите 1, чтобы занять место в вагоне'
-          end
-          exit_text
-
-          choise = gets.chomp
-          case choise
-          when 'назад'
-            break
-          when '1'
-            if is_pass_wagon
-              wagon.take_capacity
-            else
-              puts 'Введите объём'
-              capacity = gets.chomp.to_i
-              wagon.take_capacity(capacity)
-            end
-          end
-        end
+        edit_wagon_option
       else
         wrong_command_text
+      end
+    end
+  end
+
+  def edit_wagon_option(train)
+    train.each_wagon do |w, i|
+      if pass_wagon?(w)
+        puts "Вагон № #{i}, тип: пассажирский, кол-во свободных мест: #{w.free_capacity},
+          кол-во занятых мест: #{w.taken_capacity}"
+      else
+        puts "Вагон № #{i}, тип: грузовой, кол-во свободного объема: #{w.free_capacity},
+          кол-во занятого объема: #{w.taken_capacity}"
+      end
+    end
+    puts 'Введите номер вагона'
+    wagon_index = gets.chomp.to_i
+    wagon = train.wagons[wagon_index]
+    is_pass_wagon = pass_wagon?(wagon)
+    loop do
+      if is_pass_wagon
+        puts 'Введите 1, чтобы заполнить вагон'
+      else
+        puts 'Введите 1, чтобы занять место в вагоне'
+      end
+      exit_text
+
+      choise = gets.chomp
+      case choise
+      when 'назад'
+        break
+      when '1'
+        if is_pass_wagon
+          wagon.take_capacity
+        else
+          puts 'Введите объём'
+          capacity = gets.chomp.to_i
+          wagon.take_capacity(capacity)
+        end
       end
     end
   end
